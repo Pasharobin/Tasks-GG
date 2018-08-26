@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task-3</title>
+</head>
+<body>
+    <button id="add">Добавить форму</button>
+    <button id="submit">Отправить</button>
+
+    <script>
+        var form = document.createElement("form");
+        var input = document.createElement("input");
+        input.type = "text";
+        input.name = "name";
+        var select = document.createElement("select");
+        select.name = "age";
+        for (var i = 5; i <= 90; i++) {
+            var option = document.createElement("option");
+            option.innerHTML = i;
+            select.appendChild(option); 
+        }
+        var button = document.createElement("button");
+        button.innerHTML = "Удалить";
+        form.appendChild(input);
+        form.appendChild(select);
+        form.appendChild(button);
+       
+        var add = document.getElementById("add");
+        var submit = document.getElementById("submit");
+        add.addEventListener("click", addForm, false);
+        submit.addEventListener("click", submitForms, false)
+        function addForm() {
+            var clone = form.cloneNode(true);
+            clone.lastChild.addEventListener("click", deleteForm, false);
+            document.body.appendChild(clone);
+        }
+        function deleteForm(EO) {
+            EO = EO || window.event;
+            document.body.removeChild(EO.target.parentNode);
+        }
+        function submitForms() {
+            var names = document.getElementsByName("name");
+            var ages = document.getElementsByName("age");
+            var arr = [];
+            for (var i = 0; i < names.length; i++) {
+                var hash = {};
+                hash["name"] = names[i].value;
+                hash["age"] = ages[i].value; 
+                arr.push(hash);
+            }
+            console.log(arr);
+        }
+    </script>
+</body>
+</html>
